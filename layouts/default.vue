@@ -1,7 +1,7 @@
 <template>
   <el-container class="layout-default">
-    <el-header>
-      <Myheader/>
+    <el-header height="auto">
+      <my-header></my-header>
     </el-header>
     <el-main>
       <nuxt/>
@@ -12,15 +12,16 @@
   </el-container>
 </template>
 <script>
-import Myheader from '@/components/public/header/index.vue'
+import MyHeader from '@/components/public/header/index.vue'
 export default {
   components: {
-    Myheader
+    MyHeader
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "@/assets/css/main.css";
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -67,5 +68,8 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+a {
+  text-decoration: none
 }
 </style>
