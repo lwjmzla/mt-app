@@ -1,6 +1,7 @@
 <template>
   <el-row :gutter="15" class="m-header">
     <el-col :span="6">
+      foo
       <Geo/>
     </el-col>
     <el-col :span="6">
@@ -13,12 +14,12 @@
 </template>
 
 <script>
-import Geo from "./geo.vue";
+import Geo from './geo.vue'
 export default {
   components: {
     Geo
   }
-};
+}
 </script>
 
 <style  lang="scss">

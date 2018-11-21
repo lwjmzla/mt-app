@@ -8,10 +8,8 @@
   </div>
 </template>
 <script>
-export default {};
+export default {}
 </script>
-
 
 <template>
 </template>
-
