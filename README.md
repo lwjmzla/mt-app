@@ -1,6 +1,6 @@
-# mt-app
+# test-format
 
-> My ultimate Nuxt.js project
+> My shining Nuxt.js project
 
 ## Build Setup
 
