@@ -6,14 +6,14 @@
       </el-col>
       <el-col :span="15" class="center">
         <div class="wrapper">
-          <el-input placeholder="搜索商家或地点"></el-input>
+          <el-input placeholder="搜索商家或地点" v-model="searchVal" @focus="focus" @blur="blur" @input="input"></el-input>
           <button class="el-button el-button--primary"><i class="el-icon-search"></i></button>
-          <dl class="hotPlace" >
+          <dl class="hotPlace" v-show="isFocus && !searchVal">
             <dt>热门搜索</dt>
-            <dd>火锅</dd><dd>火锅</dd><dd>火锅</dd><dd>火锅</dd>
+            <dd v-for="(item,index) in hotPlace" @click="test" :key="index">{{item}}</dd>
           </dl>
-          <dl class="searchList" >
-            <dd>火锅</dd><dd>火锅</dd><dd>火锅</dd><dd>火锅</dd>
+          <dl class="searchList" v-show="isFocus && searchVal">
+            <dd v-for="(item,index) in searchList" @click="test" :key="index">{{item}}</dd>
           </dl>
         </div>
         <p class="suggest">
@@ -42,11 +42,33 @@
 export default {
   data () {
     return {
-
+      searchVal: '',
+      isFocus: false,
+      hotPlace: ['火锅','火锅','火锅','火锅','火锅'],
+      searchList: ['火锅','火锅','火锅','火锅','火锅']
     }
   },
   components: {
 
+  },
+  mounted() {
+  },
+  methods: {
+    focus () {
+      this.isFocus = true
+    },
+    blur () {
+      // 为了解决点击 热门搜素、搜索的item 时先触发了blur this.isFocus = false 的问题，而实际没点击上item 用延时
+      setTimeout(() => {
+        this.isFocus = false
+      }, 100);
+    },
+    input () {
+      console.log('input')
+    },
+    test () {
+      console.log('test')
+    }
   }
 }
 </script>
