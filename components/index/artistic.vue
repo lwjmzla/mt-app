@@ -24,15 +24,9 @@
         keyword="旅游">品质出游</dd>
     </dl>
     <ul class="ibody">
-      <li
-        v-for="item in cur"
-        :key="item.title">
-        <el-card
-          :body-style="{ padding: '0px' }"
-          shadow="never">
-          <img
-            :src="item.img"
-            class="image">
+      <li v-for="item in cur" :key="item.title">
+        <el-card :body-style="{ padding: '0px' }" shadow="never">
+          <img :src="item.img" class="image">
           <ul class="cbody">
             <li class="title">{{ item.title }}</li>
             <li class="pos"><span>{{ item.pos }}</span></li>
@@ -49,76 +43,247 @@ export default {
     return {
       kind: 'all',
       list: {
-        all: [],
-        part: [],
-        spa: [],
-        movie: [],
-        travel: []
+        all: [
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          }
+        ],
+        part: [
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          }
+        ],
+        spa: [
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          }
+        ],
+        movie: [
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '爱我去二群无',
+            pos: '轻微',
+            price: 100,
+            img: '//p1.meituan.net/merchantpic/910ff5d171dbf65452cc33fff6c86f86341227.jpg@240w_180h_1e_1c_1l|watermark=1&&r=2&p=9&x=2&y=2&relative=1&o=20|368w_208h_1e_1c',
+            url: '#'
+          }
+        ],
+        travel: [
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          },
+          {
+            title: '撒打算打算',
+            pos: '撒打算打算',
+            price: 100,
+            img: '//p0.meituan.net/msmerchant/6275ca1bdb38862e15499e73a284487b460199.jpg@368w_208h_1e_1c',
+            url: '#'
+          }
+        ]
       }
     }
   },
   computed: {
-    cur: function () {
+    cur: function() {
       return this.list[this.kind]
     }
   },
-  async mounted(){
-    let self=this;
-    let {status,data:{count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
-      params:{
-        keyword:'景点',
-        city:self.$store.state.geo.position.city // ! 这里出错 注意
-      }
-    })
-    if(status===200&&count>0){
-      let r= pois.filter(item=>item.photos.length).map(item=>{
-        return {
-          title:item.name,
-          pos:item.type.split(';')[0],
-          price:item.biz_ext.cost||'暂无',
-          img:item.photos[0].url,
-          url:'//abc.com'
-        }
-      })
-      self.list[self.kind]=r.slice(0,9)
-    }else{
-      self.list[self.kind]=[]
-    }
+  mounted() {
   },
   methods: {
-    over: async function (e) {
+    over: function(e) {
       let dom = e.target
       let tag = dom.tagName.toLowerCase()
-      let self = this
       if (tag === 'dd') {
         this.kind = dom.getAttribute('kind')
-        let keyword = dom.getAttribute('keyword')
-        let {status,data:{count,pois}}=await self.$axios.get('/search/resultsByKeywords',{
-          params:{
-            keyword,
-            city:self.$store.state.geo.position.city // ! 这里出错 注意
-          }
-        })
-        if(status===200&&count>0){
-          let r= pois.filter(item=>item.photos.length).map(item=>{
-            return {
-              title:item.name,
-              pos:item.type.split(';')[0],
-              price:item.biz_ext.cost||'暂无',
-              img:item.photos[0].url,
-              url:'//abc.com'
-            }
-          })
-          self.list[self.kind]=r.slice(0,9)
-        }else{
-          self.list[self.kind]=[]
-        }
       }
     }
-  },
-
+  }
 }
 </script>
 <style lang="scss">
-    @import "@/assets/css/index/artistic.scss";
+@import '@/assets/css/index/artistic.scss';
 </style>
