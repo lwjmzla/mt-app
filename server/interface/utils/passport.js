@@ -1,14 +1,18 @@
-import passport from 'koa-passport'
-import LocalStrategy from 'passport-local'
-import UserModel from '../../dbs/models/users'
+// import passport from 'koa-passport' // passport权限认证
+// import LocalStrategy from 'passport-local'
+// import UserModel from '../../dbs/models/users'
+const passport = require('koa-passport')
+const LocalStrategy = require('passport-local')
+const UserModel = require('../../dbs/models/users')
 
-passport.use(new LocalStrategy(async function (username, passport, done) {
+// (登录策略)
+passport.use(new LocalStrategy(async function (username, password, done) {
   let where = {
     username
   }
   let result = await UserModel.findOne(where)
   if (result !== null) {
-    if (result.passport === passport) {
+    if (result.password === password) { // 查数据库的密码 跟 当前用户提交的密码 是否一致
       return done(null, result)
     } else {
       return done(null, false, '密码错误')
@@ -26,4 +30,4 @@ passport.deserializeUser(function (user, done) {
   return done(null, user)
 })
 
-export default passport
+module.exports = passport

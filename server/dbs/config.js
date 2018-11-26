@@ -1,7 +1,7 @@
-export default {
+module.exports = {
   dbs: 'mongodb://127.0.0.1:27017/student',
   redis: {
-    get host () {
+    get host () { // 这种写法 其实相当于  host: '127.0.0.1'
       return '127.0.0.1'
     },
     get port () {
