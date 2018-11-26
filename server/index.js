@@ -2,15 +2,7 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-
-// import mongoose from 'mongoose'
-// import bodyParser from 'koa-bodyparser'
-// import session from 'koa-generic-session'
-// import Redis from 'koa-redis'
-// import json from 'koa-json'
-// import dbConfig from './dbs/config'
-// import passport from './interface/utils/passport'
-// import users from './interface/users'
+// ! 新写的
 const mongoose = require('mongoose')
 const bodyParser = require('koa-bodyparser')
 const session = require('koa-generic-session')
@@ -24,6 +16,7 @@ const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
+// ! 新写的
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
 app.use(session({key: 'mt', prefix: 'mt:uid', store: new Redis()}))
@@ -52,7 +45,7 @@ async function start () {
     await builder.build()
   }
 
-  //装载所有子路由
+  //装载所有子路由 // ! 新写的
   app.use(users.routes(),users.allowedMethods());
 
   app.use(ctx => {

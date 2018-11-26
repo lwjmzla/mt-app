@@ -1,10 +1,3 @@
-// import Router from 'koa-router'
-// import Redis from 'koa-redis'
-// import nodeMailer from 'nodemailer'
-// import User from '../dbs/models/users'
-// import Passport from './utils/passport'
-// import axios from './utils/axios'
-// import Email from '../dbs/models/config'
 const Router = require('koa-router')
 const Redis = require('koa-redis')
 const nodeMailer = require('nodemailer')
@@ -121,6 +114,7 @@ router.post('/verify', async (ctx, next) => {
     }
     return false
   }
+  // ! 我觉得还要弄一个数据库查询 账号是否已经存在。。。或者是输入文字blur后就查询 是否存在
   let transporter = nodeMailer.createTransport({
     host: Email.smtp.host,
     port: 587,

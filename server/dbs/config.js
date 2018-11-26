@@ -17,16 +17,18 @@ module.exports = {
     },
     get pass () {
       return 'bouskkripgmqbhdj' // 生成授权码
-    }
-  },
-  get code () {
-    return () => {
-      return Math.random().toString(16).slice(2, 6).toUpperCase() // ! toString(16) 这里是转为16进制的意思 "4EF4"
-    }
-  },
-  get expire () {
-    return () => {
-      return new Date().getTime() + 60 * 60 * 1000 // !一分钟 应该是  60 * 1000 就好吧
-    }
+    },
+    code: () => { return Math.random().toString(16).slice(2, 6).toUpperCase() },
+    expire: () => { return new Date().getTime() + 60 * 1000 }
   }
+  // get code () {
+  //   return () => {
+  //     return Math.random().toString(16).slice(2, 6).toUpperCase() // ! toString(16) 这里是转为16进制的意思 "4EF4"
+  //   }
+  // },
+  // get expire () {
+  //   return () => {
+  //     return new Date().getTime() + 60 * 60 * 1000 // !一分钟 应该是  60 * 1000 就好吧
+  //   }
+  // }
 }

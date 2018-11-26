@@ -54,7 +54,8 @@ export default {
         code: '',
         pwd: '',
         cpwd: '',
-        email: ''
+        email: '',
+        timer: null
       },
       rules: {
         name: [{
@@ -62,6 +63,9 @@ export default {
         }],
         email: [{
           required: true, type: 'email', message: '请输入邮箱', trigger: 'blur'
+        }],
+        code: [{
+          required: true, type: 'code', message: '请输入验证码', trigger: 'blur'
         }],
         pwd: [{
           required: true, message: '创建密码', trigger: 'blur'
@@ -86,7 +90,46 @@ export default {
 
   },
   methods: {
-    sendMsg () {},
+    sendMsg () {
+      if (this.timer) {
+        return false
+      }
+      // 先验证 昵称 和 邮箱
+      let namePass, emailPass
+      this.$refs['ruleForm'].validateField('name', (errTips) => {
+        namePass = errTips ? false : true
+      })
+      // let emailValidate
+      this.$refs['ruleForm'].validateField('email', (errTips) => {
+        emailPass = errTips ? false : true
+      })
+      if (namePass && emailPass) {
+        this.$axios.post('/users/verify', {
+          username: encodeURIComponent(this.ruleForm.name),
+          email: this.ruleForm.email
+        }).then((res) => {
+          const {status, data} = res
+          if (status === 200 && data.code === 0) {
+            let count = 60
+            this.statusMsg = `验证码已发送，剩余${count}秒`
+            this.timer = setInterval(() => {
+              count--
+              this.statusMsg = `验证码已发送，剩余${count}秒`
+              if (count === 0) {
+                clearInterval(this.timer)
+                this.timer = null
+                this.statusMsg = `验证码已发送`
+              }
+            }, 1000)
+          } else if (data.code === -1) {
+            this.$message({
+              message: data.msg,
+              type: 'warning'
+            });
+          }
+        })
+      }
+    },
     register () {}
   }
 }
