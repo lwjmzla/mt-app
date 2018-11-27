@@ -36,7 +36,23 @@ export default {
   },
   layout: 'blank',
   methods: {
-    login: function () {}
+    login: function () {
+      this.$axios.post('/users/signin', {
+        username: encodeURIComponent(this.username),
+        password: this.password
+        // password: CryptoJS.MD5(this.ruleForm.pwd).toString() // !加密用
+      }).then((res) => {
+        const {status, data} = res
+        if (status === 200 && data.code === 0) {
+          window.location.href = '/'
+        } else if (data.code === -1) {
+          this.$message({
+            message: data.msg,
+            type: 'warning'
+          });
+        }
+      })
+    }
   }
 }
 </script>

@@ -43,19 +43,28 @@
 </template>
 
 <script>
+import {IsCorrectPwd} from '@/assets/js/utils.js'
+// import CryptoJS from 'crypto-js'
 export default {
   layout: 'blank', // !设置模板  头部底部那些，默认是default.vue
   data () {
     return {
       statusMsg: '',
       error: '',
+      timer: null,
       ruleForm: {
         name: '',
         code: '',
         pwd: '',
         cpwd: '',
-        email: '',
-        timer: null
+        email: ''
+      },
+      validateState: {
+        namePass: false,
+        codePass: false,
+        pwdPass: false,
+        cpwdPass: false,
+        emailPass: false
       },
       rules: {
         name: [{
@@ -65,10 +74,21 @@ export default {
           required: true, type: 'email', message: '请输入邮箱', trigger: 'blur'
         }],
         code: [{
-          required: true, type: 'code', message: '请输入验证码', trigger: 'blur'
+          required: true, type: 'string', message: '请输入验证码', trigger: 'blur'
         }],
         pwd: [{
-          required: true, message: '创建密码', trigger: 'blur'
+          required: true, message: '请输入6-16位，包含数字和字母', trigger: 'blur'
+        }, {
+          validator: (rule, value, callback) => {
+            if (this.ruleForm.cpwd) { // 确认密码存在的话，再检测一次
+              this.$refs['ruleForm'].validateField('cpwd', (errTips) => {})
+            }
+            if (!IsCorrectPwd(value)) {
+              callback(new Error('请输入6-16位，包含数字和字母'))
+            } else {
+              callback()
+            }
+          }, trigger: 'blur'
         }],
         cpwd: [{
           required: true, message: '确认密码', trigger: 'blur'
@@ -95,15 +115,8 @@ export default {
         return false
       }
       // 先验证 昵称 和 邮箱
-      let namePass, emailPass
-      this.$refs['ruleForm'].validateField('name', (errTips) => {
-        namePass = errTips ? false : true
-      })
-      // let emailValidate
-      this.$refs['ruleForm'].validateField('email', (errTips) => {
-        emailPass = errTips ? false : true
-      })
-      if (namePass && emailPass) {
+      this._checkFirstTwo()
+      if (this.validateState.namePass && this.validateState.emailPass) {
         this.$axios.post('/users/verify', {
           username: encodeURIComponent(this.ruleForm.name),
           email: this.ruleForm.email
@@ -130,7 +143,49 @@ export default {
         })
       }
     },
-    register () {}
+    register () {
+      this._checkFirstTwo()
+      this._checkLastThree()
+      const {namePass, codePass, pwdPass, cpwdPass, emailPass} = this.validateState
+      if (namePass && codePass && pwdPass && cpwdPass && emailPass) {
+        this.$axios.post('/users/signup', {
+          username: encodeURIComponent(this.ruleForm.name),
+          email: this.ruleForm.email,
+          code: this.ruleForm.code,
+          password: this.ruleForm.pwd
+          // password: CryptoJS.MD5(this.ruleForm.pwd).toString() // !加密用
+        }).then((res) => {
+          const {status, data} = res
+          if (status === 200 && data.code === 0) {
+            window.location.href = '/login'
+          } else if (data.code === -1) {
+            this.$message({
+              message: data.msg,
+              type: 'warning'
+            });
+          }
+        })
+      }
+    },
+    _checkFirstTwo () {
+      this.$refs['ruleForm'].validateField('name', (errTips) => {
+        this.validateState.namePass = errTips ? false : true
+      })
+      this.$refs['ruleForm'].validateField('email', (errTips) => {
+        this.validateState.emailPass = errTips ? false : true
+      })
+    },
+    _checkLastThree () {
+      this.$refs['ruleForm'].validateField('code', (errTips) => {
+        this.validateState.codePass = errTips ? false : true
+      })
+      this.$refs['ruleForm'].validateField('pwd', (errTips) => {
+        this.validateState.pwdPass = errTips ? false : true
+      })
+      this.$refs['ruleForm'].validateField('cpwd', (errTips) => {
+        this.validateState.cpwdPass = errTips ? false : true
+      })
+    }
   }
 }
 </script>

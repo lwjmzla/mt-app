@@ -21,7 +21,7 @@ passport.use(new LocalStrategy(async function (username, password, done) {
     return done(null, false, '用户名不存在')
   }
 }))
-// 序列化  session
+// 序列化  session cookie
 passport.serializeUser(function (user, done) {
   done(null, user) // 这里应该是return 吧
 })

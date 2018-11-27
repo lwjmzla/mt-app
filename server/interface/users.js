@@ -19,7 +19,7 @@ router.post('/signup', async (ctx) => {
     // PS：每发一次邮件，redis都会存储验证码相关信息
     const saveCode = await Store.hget(`nodemail:${username}`, 'code') // 根据username 查code
     const saveExpire = await Store.hget(`nodemail:${username}`, 'expire') // 根据username 查过期时间
-    console.log(saveExpire)
+    // console.log(saveExpire)
     if (code === saveCode) { // 我觉得这里还可以 设置一下大小写的问题
       if (new Date().getTime() - saveExpire > 0) {
         ctx.body = {
@@ -43,7 +43,7 @@ router.post('/signup', async (ctx) => {
     }
     return false
   }
-  // 在验证用户是否被注册
+  // !验证用户是否被注册
   const user = await User.find({
     username
   })
@@ -168,12 +168,14 @@ router.get('/getUser', async (ctx) => {
     const { username, email } = ctx.session.passport.user
     ctx.body = {
       user: username,
-      email
+      email,
+      code: 0
     }
   } else {
     ctx.body = {
       user: '',
-      email: ''
+      email: '',
+      code: 0
     }
   }
 })
