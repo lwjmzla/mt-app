@@ -2,7 +2,8 @@
 const state = {
   position: {},
   menu: [],
-  hotPlace: []
+  hotPlace: [],
+  all: [] // 有格调
 }
 
 export default state

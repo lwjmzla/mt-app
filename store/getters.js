@@ -5,3 +5,5 @@ export const position = (state) => {
 export const menu = state => state.menu
 
 export const hotPlace = state => state.hotPlace
+
+export const all = state => state.all

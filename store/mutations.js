@@ -7,6 +7,9 @@ const mutations = {
   },
   setHotPlace (state, val) {
     state.hotPlace = val
+  },
+  setAll (state, val) {
+    state.all = val
   }
 }
 

@@ -29,6 +29,24 @@ const store = () => new Vuex.Store({
         }
       })
       commit('setHotPlace', status3 === 200 ? result.slice(0, 4) : [])
+      // !有格调 获取全部
+      const { status: status4, data: { pois } } = await app.$axios.get('/search/resultsByKeywords', {
+        params: {
+          keyword: '景点',
+          city: state.position.city
+        }
+      })
+      const poisData = pois.slice(0, 6)
+      const all = poisData.map((item) => {
+        return {
+          title: item.name,
+          pos: item.type.split(';')[0],
+          price: item.biz_ext.cost || '暂无',
+          img: item.photos.length ? item.photos[0].url : 'http://store.is.autonavi.com/showpic/5795e1139719dba0bb3792cf0c81fb44',
+          url: '//abc.com'
+        }
+      })
+      commit('setAll', status4 === 200 ? all : [])
     }
   },
   getters
