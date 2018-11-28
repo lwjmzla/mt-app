@@ -10,14 +10,14 @@
           <button class="el-button el-button--primary"><i class="el-icon-search"></i></button>
           <dl class="hotPlace" v-show="isFocus && !searchVal">
             <dt>热门搜索</dt>
-            <dd v-for="(item,index) in hotPlace" @click="test" :key="index">{{item}}</dd>
+            <dd v-for="(item,index) in hotPlace" @click="test" :key="index">{{item.name}}</dd>
           </dl>
           <dl class="searchList" v-show="isFocus && searchVal">
-            <dd v-for="(item,index) in searchList" @click="test" :key="index">{{item}}</dd>
+            <dd v-for="(item,index) in searchList" @click="test" :key="index">{{item.name}}</dd>
           </dl>
         </div>
         <p class="suggest">
-          <a href="#">故宫博物院</a><a href="#">故宫博物院</a><a href="#">故宫博物院</a><a href="#">故宫博物院</a>
+          <a href="#" v-for="(item,index) in hotPlace" @click="test" :key="index">{{item.name}}</a>
         </p>
         <ul class="nav">
           <li><nuxt-link to="/" class="takeout">美团外卖</nuxt-link></li>
@@ -39,17 +39,21 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   data () {
     return {
       searchVal: '',
       isFocus: false,
-      hotPlace: ['火锅','火锅','火锅','火锅','火锅'],
-      searchList: ['火锅','火锅','火锅','火锅','火锅']
+      searchList: [],
+      timer: null
     }
   },
   components: {
 
+  },
+  computed: {
+    ...mapGetters(['position', 'hotPlace'])
   },
   mounted() {
   },
@@ -64,10 +68,35 @@ export default {
       }, 100);
     },
     input () {
-      console.log('input')
+      if (!this.searchVal) {
+        clearTimeout(this.timer)
+        this.timer = null
+        return false
+      }
+      this.searchList = []
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+      this.timer = setTimeout(() => {
+        this.$axios.get('/search/top', {
+          params: {
+            input: this.searchVal,
+            city: this._deleteLastWord(this.position.city),
+          }
+        }).then((res) => {
+          if (res.status === 200) {
+            const searchList = res.data.top
+            this.searchList = searchList.slice(0,10)
+          }
+        })
+      }, 200)
     },
     test () {
       console.log('test')
+    },
+    _deleteLastWord (str) {
+      return str.substring(0, str.length - 1)
     }
   }
 }

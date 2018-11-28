@@ -1,7 +1,8 @@
 
 const state = {
   position: {},
-  menu: {}
+  menu: [],
+  hotPlace: []
 }
 
 export default state
