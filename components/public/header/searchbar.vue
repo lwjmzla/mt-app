@@ -10,12 +10,12 @@
           <button class="el-button el-button--primary"><i class="el-icon-search"></i></button>
           <dl class="hotPlace" v-show="isFocus && !searchVal">
             <dt>热门搜索</dt>
-            <dd v-for="(item,index) in hotPlace" @click="test" :key="index">
+            <dd v-for="(item,index) in hotPlace" :key="index">
               <nuxt-link :to="`/products?keyword=${item.name}`" @click.native="refresh">{{item.name}}</nuxt-link>
             </dd>
           </dl>
           <dl class="searchList" v-show="isFocus && searchVal">
-            <dd v-for="(item,index) in searchList" @click="test" :key="index">
+            <dd v-for="(item,index) in searchList" :key="index">
               <nuxt-link :to="`/products?keyword=${item.name}`" @click.native="refresh">{{item.name}}</nuxt-link>
             </dd>
           </dl>
