@@ -13,6 +13,7 @@ const passport = require('./interface/utils/passport')
 const users = require('./interface/users')
 const geo = require('./interface/geo')
 const search = require('./interface/search')
+const categroy = require('./interface/categroy')
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
@@ -51,6 +52,7 @@ async function start () {
   app.use(users.routes(),users.allowedMethods());
   app.use(geo.routes(),geo.allowedMethods());
   app.use(search.routes(),search.allowedMethods());
+  app.use(categroy.routes(),categroy.allowedMethods());
 
   app.use(ctx => {
     ctx.status = 200 // koa defaults to 404 when it sees that status is unset

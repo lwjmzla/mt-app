@@ -17,6 +17,7 @@
         :value="item.value">
       </el-option>
     </el-select>
+    <span class="name" style="margin-left:20px;">直接搜索:</span>
     <el-autocomplete
       v-model="input"
       :fetch-suggestions="querySearchAsync"

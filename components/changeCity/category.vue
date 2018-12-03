@@ -16,39 +16,37 @@
 <script>
 import pyjs from 'js-pinyin'
 export default {
-  data () {
+  data() {
     return {
       list: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
       showList: [], // 这才是要展示的字母
       block: []
     }
   },
-  components: {
-
-  },
-  created () {
+  components: {},
+  created() {
     // 先建一个模型
-    let arrModel = this.list.map((item) => {
+    let arrModel = this.list.map(item => {
       return {
         title: item,
         city: []
       }
     })
-    this.$axios.get('/geo/city').then((res) => {
-      const {status, data} = res
+    this.$axios.get('/geo/city').then(res => {
+      const { status, data } = res
       if (status === 200) {
         const city = data.city // 所有城市
-        city.forEach((item) => {
+        city.forEach(item => {
           const cityName = item.name
           const firstLetter = pyjs.getFullChars(item.name).charAt(0)
-          for (let i = 0;i < arrModel.length;i++) {
+          for (let i = 0; i < arrModel.length; i++) {
             if (arrModel[i].title === firstLetter) {
               arrModel[i].city.push(cityName)
               break // forEach不好跳出循环
             }
           }
         })
-        this.block = arrModel.filter((item) => {
+        this.block = arrModel.filter(item => {
           if (item.city.length) {
             this.showList.push(item.title)
           }
@@ -61,5 +59,5 @@ export default {
 </script>
 
 <style lang='scss'>
-  @import "@/assets/css/changeCity/categroy.scss";
+@import '@/assets/css/changeCity/categroy.scss';
 </style>

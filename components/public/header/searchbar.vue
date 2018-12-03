@@ -10,14 +10,18 @@
           <button class="el-button el-button--primary"><i class="el-icon-search"></i></button>
           <dl class="hotPlace" v-show="isFocus && !searchVal">
             <dt>热门搜索</dt>
-            <dd v-for="(item,index) in hotPlace" @click="test" :key="index">{{item.name}}</dd>
+            <dd v-for="(item,index) in hotPlace" @click="test" :key="index">
+              <nuxt-link :to="`/products?keyword=${item.name}`" @click.native="refresh">{{item.name}}</nuxt-link>
+            </dd>
           </dl>
           <dl class="searchList" v-show="isFocus && searchVal">
-            <dd v-for="(item,index) in searchList" @click="test" :key="index">{{item.name}}</dd>
+            <dd v-for="(item,index) in searchList" @click="test" :key="index">
+              <nuxt-link :to="`/products?keyword=${item.name}`" @click.native="refresh">{{item.name}}</nuxt-link>
+            </dd>
           </dl>
         </div>
         <p class="suggest">
-          <a href="#" v-for="(item,index) in hotPlace" @click="test" :key="index">{{item.name}}</a>
+          <nuxt-link :to="`/products?keyword=${item.name}`" v-for="(item,index) in hotPlace" @click.native="refresh" :key="index">{{item.name}}</nuxt-link>
         </p>
         <ul class="nav">
           <li><nuxt-link to="/" class="takeout">美团外卖</nuxt-link></li>
@@ -39,9 +43,9 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       searchVal: '',
       isFocus: false,
@@ -49,25 +53,22 @@ export default {
       timer: null
     }
   },
-  components: {
-
-  },
+  components: {},
   computed: {
     ...mapGetters(['position', 'hotPlace'])
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    focus () {
+    focus() {
       this.isFocus = true
     },
-    blur () {
+    blur() {
       // 为了解决点击 热门搜素、搜索的item 时先触发了blur this.isFocus = false 的问题，而实际没点击上item 用延时
       setTimeout(() => {
         this.isFocus = false
-      }, 100);
+      }, 100)
     },
-    input () {
+    input() {
       if (!this.searchVal) {
         clearTimeout(this.timer)
         this.timer = null
@@ -79,23 +80,30 @@ export default {
         this.timer = null
       }
       this.timer = setTimeout(() => {
-        this.$axios.get('/search/top', {
-          params: {
-            input: this.searchVal,
-            city: this._deleteLastWord(this.position.city),
-          }
-        }).then((res) => {
-          if (res.status === 200) {
-            const searchList = res.data.top
-            this.searchList = searchList.slice(0,10)
-          }
-        })
+        this.$axios
+          .get('/search/top', {
+            params: {
+              input: this.searchVal,
+              city: this._deleteLastWord(this.position.city)
+            }
+          })
+          .then(res => {
+            if (res.status === 200) {
+              const searchList = res.data.top
+              this.searchList = searchList.slice(0, 10)
+            }
+          })
       }, 200)
     },
-    test () {
+    test() {
       console.log('test')
     },
-    _deleteLastWord (str) {
+    refresh() {
+      if (window.location.pathname === '/products') {
+        window.location.reload() // !this.$router.go(0) 都可以  后者不兼容siri 不知这样重新加载好不好，因为所有东西都是重新加载了
+      }
+    },
+    _deleteLastWord(str) {
       return str.substring(0, str.length - 1)
     }
   }
@@ -103,5 +111,4 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
 </style>

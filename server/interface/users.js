@@ -3,7 +3,7 @@ const Redis = require('koa-redis')
 const nodeMailer = require('nodemailer')
 const User = require('../dbs/models/users')
 const Passport = require('./utils/passport')
-const axios = require('./utils/axios')
+// const axios = require('./utils/axios')
 const Email = require('../dbs/config')
 
 let router = new Router({
@@ -58,19 +58,24 @@ router.post('/signup', async (ctx) => {
   let nuser = await User.create({ username, password, email })
   console.log(nuser)
   if (nuser) {
-    let res = await axios.post('/users/signin', { username, password })
-    if (res.data && res.data.code === 0) {
-      ctx.body = {
-        code: 0,
-        msg: '注册成功',
-        user: res.data.user
-      }
-    } else {
-      ctx.body = {
-        code: -1,
-        msg: 'error'
-      }
+    ctx.body = {
+      code: 0,
+      msg: '注册成功'
     }
+    // !不知这段为啥 还要登录
+    // let res = await axios.post('/users/signin', { username, password })
+    // if (res.data && res.data.code === 0) {
+    //   ctx.body = {
+    //     code: 0,
+    //     msg: '注册成功',
+    //     user: res.data.user
+    //   }
+    // } else {
+    //   ctx.body = {
+    //     code: -1,
+    //     msg: 'error'
+    //   }
+    // }
   } else {
     ctx.body = {
       code: -1,
