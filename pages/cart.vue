@@ -1,7 +1,7 @@
 <template>
   <div class="page-cart">
     <el-row>
-      <el-col v-if="1 || cart.length" :span="24" class="m-cart">
+      <el-col v-if="cart.length" :span="24" class="m-cart">
         <list :cart-data="cart"/>
         <p>
           应付金额：<em class="money">￥{{ total }}</em>
@@ -21,9 +21,9 @@ export default {
   components:{
     List
   },
-  data(){
+  data () {
     return {
-      cart:[]
+      cart: []
     }
   },
   computed:{
@@ -36,9 +36,32 @@ export default {
     }
   },
   methods:{
-    submit () {}
+    submit () {
+      this.$axios.post('/order/createOrder', {
+        id: this.cartNo,
+        price: this.cart[0].price,
+        count: this.cart[0].count
+      }).then((res) => {
+        const {status, data} = res
+        if (status === 200 && data.code === 0) {
+          window.location.href = '/order'
+        }
+      })
+    }
   },
   async asyncData(ctx){
+    const id = ctx.query.id
+    const { status, data } = await ctx.$axios.post('/cart/getCart', { id })
+    if( status === 200 && data.code === 0 ) {
+      return {
+        cart: [{
+          name: data.data.name,
+          price: data.data.price,
+          count: 1
+        }],
+        cartNo: id
+      }
+    }
   }
 
 }

@@ -16,11 +16,10 @@ router.post('/create', async ctx => {
       msg: 'please login'
     }
   } else {
-    let time = Date()
-    // let cartNo = md5(Math.random() * 1000 + time).toString()
-    let cartNo = md5(Math.random() * 1000 + new Date().getTime()).toString()
-    let { params: { id, detail } } = ctx.request.body
-    console.log(ctx.request.body) // !看看 ctx.request.body.id  ctx.request.body.detail
+    let time = Date() // string形式的
+    let cartNo = md5(Math.random() * 1000 + time).toString() // 购物车ID
+    // let cartNo = md5(Math.random() * 1000 + new Date().getTime()).toString() // 购物车ID // ! 这一种计算方式 可能数字太大
+    let { id, detail } = ctx.request.body // 产品ID
     let cart = new Cart({ id, cartNo, time, user: ctx.session.passport.user, detail })
     let result = await cart.save()
     if (result) {
@@ -40,7 +39,6 @@ router.post('/create', async ctx => {
 
 router.post('/getCart', async ctx => {
   let { id } = ctx.request.body
-  console.log(id)
   try {
     let result = await Cart.findOne({ cartNo: id })
     ctx.body = {

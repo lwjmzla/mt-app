@@ -15,6 +15,7 @@ const geo = require('./interface/geo')
 const search = require('./interface/search')
 const categroy = require('./interface/categroy')
 const cart = require('./interface/cart')
+const order = require('./interface/order')
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
@@ -55,6 +56,7 @@ async function start () {
   app.use(search.routes(),search.allowedMethods());
   app.use(categroy.routes(),categroy.allowedMethods());
   app.use(cart.routes(),cart.allowedMethods());
+  app.use(order.routes(),order.allowedMethods());
 
   app.use(ctx => {
     ctx.status = 200 // koa defaults to 404 when it sees that status is unset

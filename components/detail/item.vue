@@ -40,35 +40,28 @@ export default {
     }
   },
   methods: {
-    createCart: async function () {
-      // let self = this;
-      // let {
-      //   status,
-      //   data: {
-      //     code,
-      //     id
-      //   }
-      // } = await this.$axios.post('/cart/create', {
-      //   params: {
-      //     id: Math.random().toString().slice(3, 9),
-      //     detail: {
-      //       name: self.meta.name,
-      //       price: self.meta.biz_ext.cost,
-      //       imgs: self.meta.photos
-      //     }
-      //   }
-      // })
-      // if(status===200&&code===0){
-      //   window.location.href=`/cart/?id=${id}`
-      // }else{
-      //   console.log('error')
-      // }
+    createCart: async function() {
+      let self = this
+      let { status, data: { code, id } } = await this.$axios.post('/cart/create', // get才加params post不加
+        {
+          id: Math.random().toString().slice(3, 9), // 产品ID
+          detail: {
+            name: self.meta.name,
+            price: self.meta.biz_ext.cost,
+            imgs: self.meta.photos
+          }
+        }
+      )
+      if (status === 200 && code === 0) {
+        // window.location.href = `/cart/?id=${id}`
+        window.location.href = `/cart?id=${id}` // 返回的ID是订单号
+      } else {
+        console.log('error')
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-
-
 </style>
